@@ -20,6 +20,7 @@
 package leetcode.editor.cn;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
@@ -27,16 +28,41 @@ class Employee {
     public int id;
     public int importance;
     public List<Integer> subordinates;
+    public Employee(int _id,int _importance,List<Integer> _sub){
+        id=_id;
+        importance=_importance;
+        subordinates=_sub;
+    }
+    public Employee(){
+    }
 }
 public class ImportanceOfEmployee {
-    public int getImportance(List<Employee> employees, int id) {
+    public static void main(String[] args) {
+        List<Integer> sub1 = new ArrayList<>();
+        sub1.add(2);
+        sub1.add(3);
+        Employee employee1=new Employee(1, 5, sub1);
+
+        List<Integer> sub2 = new ArrayList<>();
+        Employee employee2=new Employee(2, 3, sub2);
+
+        List<Integer> sub3 = new ArrayList<>();
+        Employee employee3=new Employee(3, 3, sub3);
+         List<Employee> employees= new ArrayList<>();
+         employees.add(employee1);
+         employees.add(employee2);
+         employees.add(employee3);
+         int importance =getImportance(employees,1);
+    }
+
+    public static int getImportance(List<Employee> employees, int id) {
         Employee targetEmployee = findTargetEmployee(employees,id);
         int importance = 0;
         Queue<Employee> queue = new ArrayDeque<>();
         queue.add(targetEmployee);
         while (!queue.isEmpty()) {
             Employee pollEmployee = queue.poll();
-            importance = pollEmployee.importance;
+            importance += pollEmployee.importance;
             List<Integer> subordinates=pollEmployee.subordinates;
             for (int i=0;i<subordinates.size();i++) {
                 Employee sub = findTargetEmployee(employees,subordinates.get(i));
@@ -45,7 +71,7 @@ public class ImportanceOfEmployee {
         }
         return importance;
     }
-     private Employee findTargetEmployee(List<Employee> employees, int id) {
+     private static Employee findTargetEmployee(List<Employee> employees, int id) {
          Employee targetEmployee = new Employee();
          for (Employee employee : employees) {
              if(employee.id == id) {
