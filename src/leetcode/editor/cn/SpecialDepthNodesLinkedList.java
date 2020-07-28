@@ -73,14 +73,17 @@ public class SpecialDepthNodesLinkedList {
         queue.add(tree);
         while (!queue.isEmpty()) {
             int levelNodeNums = queue.size();
-            ListNode levelNodeLists = null;
+            ListNode head = null;
             ListNode curNode = null;
             for (int i = 0; i < levelNodeNums; i++) {
                 TreeNode pollNode = queue.poll();
-                if (levelNodeLists == null) {
-                    levelNodeLists = new ListNode(pollNode.val);
-                    curNode=levelNodeLists;
+                if (head == null) {
+                    // 头结点
+                    head = new ListNode(pollNode.val);
+                    // 当前节点
+                    curNode=head;
                 } else {
+                    // 链表的链接
                     ListNode newNode =  new ListNode(pollNode.val);
                     curNode.next = newNode;
                     curNode = newNode;
@@ -92,7 +95,7 @@ public class SpecialDepthNodesLinkedList {
                     queue.add(pollNode.right);
                 }
             }
-            resList.add(levelNodeLists);
+            resList.add(head);
         }
         ListNode[] resArr = new ListNode[resList.size()];
         for (int i = 0; i < resList.size(); i++) {
