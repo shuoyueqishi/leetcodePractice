@@ -27,7 +27,7 @@ public class CalculateWaterArea {
 
     public static void main(String[] args) {
         int[][] maps = new int[][]{
-                {0, 2, 0, 0},
+                {0, 2, 1, 1},
                 {0, 1, 0, 1},
                 {1, 1, 0, 0},
                 {0, 1, 0, 1}
